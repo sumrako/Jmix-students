@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="JmixPractice">
+        <createTable tableName="EVENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EVENT"/>
+            </column>
+            <column name="FORMAT" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(511)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START_DATE_TIME" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="END_DATE_TIME" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="JmixPractice">
+        <createTable tableName="EVENT_STUDENT_LINK">
+            <column name="EVENT_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EVENT_STUDENT_LINK"/>
+            </column>
+            <column name="STUDENT_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_EVENT_STUDENT_LINK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="JmixPractice">
+        <createTable tableName="STUDENT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_STUDENT"/>
+            </column>
+            <column name="FIRST_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PATRONYMIC" type="VARCHAR(255)"/>
+            <column name="UNIVERSITY" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NUMBER_OF_GROUP" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TASK_" type="${byte[].type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START_DATE" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="END_DATE" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPECIALIZATION" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="JmixPractice">
+        <addForeignKeyConstraint baseColumnNames="EVENT_ID" baseTableName="EVENT_STUDENT_LINK"
+                                 constraintName="FK_EVESTU_ON_EVENT" referencedColumnNames="ID"
+                                 referencedTableName="EVENT"/>
+    </changeSet>
+    <changeSet id="5" author="JmixPractice">
+        <addForeignKeyConstraint baseColumnNames="STUDENT_ID" baseTableName="EVENT_STUDENT_LINK"
+                                 constraintName="FK_EVESTU_ON_STUDENT" referencedColumnNames="ID"
+                                 referencedTableName="STUDENT"/>
+    </changeSet>
+    <changeSet id="6" author="JmixPractice">
+        <dropTable cascadeConstraints="true" tableName="USER_"/>
+    </changeSet>
+</databaseChangeLog>
